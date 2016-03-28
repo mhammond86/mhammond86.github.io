@@ -33,7 +33,43 @@ h2 {
     width: 80%;
     margin: 0 auto;
     color: whitesmoke;
-};
+}
+    h3 {
+        font-family: Dosis, sans-serif;
+        color: #003d71
+    }
+    p { 
+        font-size: .9em; 
+        color: #375671; 
+    }
+    ul {
+        list-style-type: none; 
+        font-size: .9em; 
+        color: #375671; 
+        line-height: 1.6em;
+    }
+    a, a:visited {   
+        color: #003d71;
+    }
+    .project {
+    width: 80%;
+    min-width: 800px;
+    height: 100%;
+    margin: 35px auto;
+}
+.project:after{
+    content: "";
+    display: table;
+    clear: both; 
+}
+.project-image {
+    width: 388px;
+    height: 240px;
+    background: white;
+    float: left;
+    margin-right: 20px;
+    border: 2px solid #dddddd;
+}
 /* CSS style rules go here! */   
 
 </style>
@@ -44,8 +80,8 @@ h2 {
 <h1>Max Hammond: Mapper of Geology</h1>
 <h2>Web Cartography at the University of Kentucky</h2>
 </header>
-<section>
-    <a target = '_blank' href="https://mhammond86.cartodb.com/viz/4e67269c-9b8c-11e5-9d32-0ea31932ec1d/map"><img src="images/CoalFire.png" alt="Coal Fire Power Plants"/></a>
+<section class="project">
+    <a target = '_blank' href="https://mhammond86.cartodb.com/viz/4e67269c-9b8c-11e5-9d32-0ea31932ec1d/map"><img src="images/CoalFire.png" alt="Coal Fire Power Plants" class="project-image"/></a>
     <h3><a target = '_blank' href="https://mhammond86.cartodb.com/viz/4e67269c-9b8c-11e5-9d32-0ea31932ec1d/map">Coal Fire Power Plants in the United States.</a></h3>
     <p>This map shows greenhouse gas emission by state per square kilometer when zoomed out past level 6 and shows greenhouse gas emission by facility when zoom into or past level 6.</p>
     <p>This map was generated using QGIS.</p>
@@ -54,8 +90,8 @@ h2 {
         <li><a href="" /></li>
     </ul>
 </section>
-<section>
-   <a href="maps/oldhamfinal.pdf"><img src="images/Oldham_sinkholes.png" alt="LiDAR Map of Oldham County Sinkholes" /></a>
+<section class="project">
+   <a href="maps/oldhamfinal.pdf"><img src="images/Oldham_sinkholes.png" alt="LiDAR Map of Oldham County Sinkholes" class="project-image" /></a>
     <h3><a href="maps/oldhamfinal.pdf">LiDAR Map of Oldham County Sinkholes</a></h3>
     <p>The map was generated in QGIS by doing bla bla bla ...</p>
     <ul>
@@ -63,8 +99,8 @@ h2 {
         <li>Data Source: <a href="https://asterweb.jpl.nasa.gov/gdem.asp">GDEM, NASA's ASTER data from the Jet Propulsion Laboratory</a></li>
     </ul>
 </section>  
-    <section>
-    <a target = '_blank' href="http://mhammond86.github.io/wind-power/"><img src="images/WindPower.png" alt="Wind Power Plant Locations"/></a>
+<section class="project">
+    <a target = '_blank' href="http://mhammond86.github.io/wind-power/"><img src="images/WindPower.png" alt="Wind Power Plant Locations" class="project-image"/></a>
     <h3><a target = '_blank' href="http://mhammond86.github.io/wind-power/">Wind Power Plants in the United States.</a></h3>
     <p>This map shows wind power plant locations in the United States and the power they produce.</p>
     <p>This map was generated using Leaflet.</p>
