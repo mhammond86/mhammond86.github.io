@@ -1,268 +1,124 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-
 <head>
-    <meta charset=utf-8 />
-<!--    <title>Union Surficial Geology</title>-->
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<meta charset="utf-8">
+<title>Max Hammond III Portfolio</title>
 
-    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
-    <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
-    <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+<meta name=‘viewport’ content=‘initial-scale=1,maximum-scale=1,user-scalable=no’ />
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: whitesmoke;
-            font-family: Lato, sans-serif;
-            color: #0D0000;
-        }
-/*
-        header {
-            padding: 6px 10%;
-        }
-        h1 {
-            display: inline-block;
-            margin-right: 20px;
-            color: #001323;
-        }
-        h2 {
-            display: inline-block;
-            color: #001323;
-        }
-*/
-        #map {
-            width: 100%;
-            height: 1000px;
-            margin: 30px auto;
-        }
-        footer {
-            padding: 6px 10%;
-            width: 80%;
-        }
-        p {
-            font-size: 1em;
-            color: #001323;
-        }
-        #side-panel {
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom:0;
-            width: 33%;
-            background: whitesmoke;
-            border-right: 2px solid #008000;
-            overflow-y: scroll;
-}
-        h1 {
-            padding: 8px 25px 8px 15px;
-            margin: 0;
-            background: #008000;
-            color: whitesmoke;
-            font-weight: 400;
-            font-size: 1.5em;
-            text-align: left;
-        }
-        h2 {
-            margin: 0;
-            padding: 8px 25px 8px 15px;
-            color: #008000;
-            font-weight: 500;
-            font-size: 1.2em;
-            text-align: left;
-        }
-        #side-panel p {
-            margin: 8px 0 4px; 
-            padding: 0 25px 0 15px;
-            color: #008000;
-            text-align: left;
-            font-size: 1em; 
-        }
-        #side-panel p:after {
-            content: '';
-            display: block;
-            clear: both;
-        }
-         #legend{
-            position:fixed;
-            border: solid 1px black;
-            background-color: white;
-            padding: 25px;
-            left: 50px;
-            bottom: 15px;
-            font-family: sans-serif;
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css" />    
+<link href='http://fonts.googleapis.com/css?family=Imprima' rel='stylesheet' type='text/css'>    
+<style>
+   body {  
+    background: #f5f5f5;   
+    font-family: Imprima, sans-serif;
+} 
+    header { 
+        width: 100%;
+        min-width: 800px;
+        margin: 0 auto;
+        background: green;
+        padding: 15px 0 20px;
     }
-        #legnd label,
-        #legend span {
-            display:block;
-            float:left;
-            height:25px;
-            width:11%;
-            text-align:center;
-            font-size:25px;
-            color:#808080;
-      }
-        .transparency-slider {
-            position: absolute;
-            right: 15px;
-            bottom: 15px;
-            width: 250px;
-        }
-    </style>
+h1 { 
+    font-family: Dosis, sans-serif;
+    color: #556B2F; 
+    width: 80%;
+    margin: 0 auto;
+    color: #DCDCDC;
+}
+h2 { 
+    font-family: Dosis, sans-serif;
+    color: #556B2F;
+    width: 80%;
+    margin: 0 auto;
+    color: #DCDCDC;
+}
+    h3 {
+        font-family: Dosis, sans-serif;
+        color: #228B22;
+    }
+    p { 
+        font-size: 1.2em; 
+        color: #556B2F; 
+    }
+    ul {
+        list-style-type: none; 
+        font-size: 1.2em; 
+        color: #556B2F; 
+        line-height: 1.6em;
+    }
+    a, a:visited {   
+        color: #228B22;
+    }
+    .project {
+    width: 80%;
+    min-width: 800px;
+    height: 100%;
+    margin: 35px auto;
+}
+.project:after{
+    content: "";
+    display: table;
+    clear: both; 
+}
+.project-image {
+    width: 388px;
+    height: 240px;
+    background: white;
+    float: left;
+    margin-right: 20px;
+    border: 2px solid #dddddd;
+}
+/* CSS style rules go here! */   
+
+</style>
 </head>
 
 <body>
-<!--
-    <header>
-        <h1>Union Surficial Geology</h1>
-        <h2>Surficial Geology of the Union, KY Quadrangle.</h2>
-    </header>
--->
-    <div id='map'></div>
-   
-    <div id='side-panel'>
-     <h1>Union Surficial Geology</h1>
-        <h2>Surficial Geology of the Union, KY Quadrangle.</h2>
-    <p>Map authored by Max Hammond III</p>
-        <p>GEOLOGIC SUMMARY</p>
- 
-        <p>GEOLOGIC SETTING</p>
- 
-    <p>The Union 7.5-min quadrangle is located in Boone County, Kentucky in the Outer Bluegrass Region of the state. Ordovician bedrock geology in the quadrangle consists of, in ascending order, the Kope Formation, the Fairview Formation, the Bellevue Tongue of Grant Lake Limestone, and the Bull Fork Formation.. The Kope consists of approximately 75 percent shale and 25 percent limestone and is 220 to 235 ft thick, primarily exposed along stream valleys, lower parts of hills, and along railroad and road cuts.  The Fairview is interbedded limestone and shale with 50 to 60 percent being limestone and is 95-110 ft thick, which occurs as a more resistant rock on hills and ridgetops.  The Bellevue Tongue of the Grant Lake Limestone is a shelly rubbly weathering limestone that has very thin discontinuous shale parting, it is 8 to 23 ft thick and is non-resistant and poorly exposed.  The Bull Fork Formation is made up of interbedded limestone and shale, with more 50-60 percent being limestone, it is approximately 90+ ft thick and poorly exposed. All of the formations are fossiliferious. This map shows the distribution of surficial, engineering soils above bedrock and the relationship between surficial deposits and the underlying bedrock (Swadley, 1969).</p>
- 
- 
-        <p>GEOMORPHOLOGY AND SURFICIAL DEPOSITS</p>
- 
-<p>The units described on this map reflect natural processes collectively operating as a dynamic geomorphic system (Newell, 1978). The primary mechanisms of sediment transport and deposition in this area are flowing water (alluvial), glacial advances in the Pleistocene (glacial process), and gravity/mass-movement (colluvial processes), which are complexly interrelated. The map units in this area have been delineated based on the primary process generating the deposit or material. Soil survey maps and existing bedrock geologic maps served as the initial guide to mapping and these areas were modified through field identification, geomorphic setting, and well data. (Delineation and identification of all maps units is restricted by the map scale of 1:24,000).
-This map shows the distribution of surficial deposits of glacial drift (Qgd), glacial outwash (Qotp), residual soil (Qr), colluvium (Qc), alluvium (Qal), older alluvium (Qalo), alluvial fans (Qaf), alluvial terrace deposits (Qat), and artificial/engineered fill (af1). The distributions of these deposits are based on field observation, Natural Resource Conservation Service soil data, high resolution elevation data (LiDAR) and the geologic quadrangle map of Union.</p>
-<p>Glacial deposits occur in most of the quad, with the only exception being the southeast corner.  The Union quad has been effected by at least on Pre-Illinoisan glacial event. Points on the map indicate areas where some of the glacial evidence was found. The area is heavily industrialized making the locating of outcrops difficult. Mapping of the unit was based on previous work from the NRCS Soil Survey and from the presence of igneous and metamorphic rocks scattered through the area.
-    Most of the alluvial deposits (Qal) occupy the Gunpowder and Big Bone Watersheds and parts of smaller tributary valleys.  Alluvial deposits at Big Bone Lick State Park are world renowned for the presence of Pleistocene mammal fossils.  The glacial influence is supported by remnants being eroded by the drainages of the area and various igneous boulders. Residual soil (Qr) mapped, primarily occurs on ridges and hilltops and in some small valleys with a low slope. There are glacial drift remnants in areas mapped as residuum, suggesting that glacial drift (Qgd) is widespread agross the area. This soil locally includes loess that overlies or is mixed with the residuum. The Kope shale weathers easily, slumping and producing colluvial soils (Qc) of variable thickness. Composition of the colluvium ranges from clayey (predominantly illite) and silty to coarse with abundant limestone slabs.</p></div>
-
-    <input type="range" min="0", max="1", 
-            value="1", step=".1" class="transparency-slider">
-    
-    <div id="legend">
-    <strong>Surficial Map Units</strong>
-    <div class='legend clearfix'>
-        <span style='background:#FF7F50;'></span>
-        <span style='background:#9932CC;'></span>
-        <span style='background:#FF6347;'></span>
-        <span style='background:#F0E68C;'></span>
-        <span style='background:#D2B48C;'></span>
-        <span style='background:#808080;'></span>
-        <span style='background:#FFFF00;'></span>
-        <span style='background:#808000;'></span>
-        <span style='background:#B8860B;'></span>
-        <label>Qr</label>
-        <label>Qal</label>
-        <label>Qaf</label>
-        <label>Qat</label>
-        <label>Qc</label>
-        <label>af1</label>
-        <label>Qalo</label>
-        <label>Qot</label>
-        <label>Qgd</label>
-    </div>
-        
-    <script src="union_trimmed.geojson"></script>
-    <script>
-
-       var map = L.map('map', {
-          center: [38.945895,-84.6805],
-          zoomControl: false,
-          zoom: 12,
-          minZoom: 11,
-          maxZoom: 20,
-          maxBounds: L.latLngBounds([39, -85],[38.9, -84.5])
-      });
-         
-        
-        map.addControl( L.control.zoom({ position: 'topright' }));
-      
-      var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWhhbW1vbmQ4NiIsImEiOiJjaW56Mm1qbzExOG9jdHZseTcwcHR1cWFxIn0.1ileWPPuvPS5l3Xilk4cKA');
-         
-      
-      
-      tiles.addTo(map);
-        
-    var layerInfo = {
-        residuumLayer: {source:"Qr", color:'#FF7F50'}, 
-        alluviumLayer: {source:"Qal", color:'#9932CC'},
-        fanLayer: {source:"Qaf", color:'#FF6347'},
-        terraceLayer: {source:"Qat", color:'#F0E68C'},
-        colluviumLayer: {source:"Qc", color:'#D2B48C'}, 
-        fillLayer: {source:"af1", color:'#808080'},
-        oldAlluviumLayer: {source:"Qalo", color:'#FFFF00'},
-        outwashLayer: {source:"Qotp", color:'#808000'},
-        driftLayer: {source:"Qgd", color:'#B8860B'},
-    };
-        
-    var geoJsonLayers = {};
-        
-    $.getJSON("union_trimmed.geojson", function(data){
-    
-       for (var layer in layerInfo) {
-         
-            geoJsonLayers[layer] = L.geoJson( data, {
-                style: function(feature){
-                  var fillColor,
-                      label = feature.properties.Label;
-
-                  if ( label == 'Qr' ) fillColor = "#FF7F50";
-                  else if ( label == 'Qal' ) fillColor = "#9932CC";
-                  else if ( label == 'Qaf' ) fillColor = "#FF6347";
-                  else if ( label == 'Qat' ) fillColor = "#F0E68C"
-                  else if ( label == 'Qc' ) fillColor = "#D2B48C";
-                  else if ( label == 'af1' ) fillColor = "#808080";
-                  else if ( label == 'Qalo' ) fillColor = "#FFFF00";
-                  else if ( label == 'Qotp' ) fillColor = "#808000";
-                  else if ( label == 'Qgd' ) fillColor = "#B8860B";
-                  else fillColor = "#f7f7f7";  // no data
-                  return { 
-                      color: "#999", 
-                      weight: 1, 
-                      fillColor: fillColor, 
-                      fillOpacity: 1
-                  };
-                },
-                onEachFeature : function(feature, layer) {
-                    layer.bindPopup(feature.properties.MapUnitNam)
-                    
-                    }
-          
-            }).addTo(map);
-           
-       }
-        
-
-        // select the slider
-        $('.transparency-slider').on('input change', function() {
-           
-            // get the current value
-            var currentTransparency = $(this).val();
-            
-            // loop through all your layers
-            for(layer in geoJsonLayers) {
-                
-                // set the layer opacity with current slider value
-                geoJsonLayers[layer].setStyle({
-                    fillOpacity: currentTransparency,
-                    opacity: currentTransparency
-                })
-            }
-            
-            
-        });
-        
-        
-    });
-
-        </script>
+<header>
+<h1>Max Hammond: Mapper of Geology</h1>
+<h2>Web Cartography at the University of Kentucky</h2>
+</header>
+<section class="project">
+    <a target = '_blank' href="https://mhammond86.cartodb.com/viz/4e67269c-9b8c-11e5-9d32-0ea31932ec1d/map"><img src="images/CoalFire.png" alt="Coal Fire Power Plants" class="project-image"/></a>
+    <h3><a target = '_blank' href="https://mhammond86.cartodb.com/viz/4e67269c-9b8c-11e5-9d32-0ea31932ec1d/map">Coal Fire Power Plants in the United States.</a></h3>
+    <p>This map shows greenhouse gas emission by state per square kilometer when zoomed out past level 6 and shows greenhouse gas emission by facility when zoom into or past level 6.</p>
+    <p>This map was generated using QGIS and CartoDB.</p>
+    <ul>
+        <li>See the map:<a target = '_blank' href="https://mhammond86.cartodb.com/viz/4e67269c-9b8c-11e5-9d32-0ea31932ec1d/map">Coal Fire Power Plants</a></li>
+        <li>Data Source: <a href="http://ghgdata.epa.gov/ghgp/main.do"> EPA's Facility Level Information on GreenHouse gasses Tool FLIGHT</a></li>
+    </ul>
+</section>
+<section class="project">
+   <a target = '_blank' href="maps/oldhamfinal.pdf"><img src="images/Oldham_sinkholes.png" alt="LiDAR Map of Oldham County Sinkholes" class="project-image" /></a>
+    <h3><a target = '_blank' href="maps/oldhamfinal.pdf">LiDAR Map of Oldham County Sinkholes</a></h3>
+    <p>The map was generated in ArcMap using a LiDAR basemap.</p>
+    <ul>
+        <li>See the map: <a target = '_blank' href="maps/oldhamfinal.pdf">LiDAR Map of Oldham County Sinkholes</a></li>
+        <li>Data Source: <a href="http://kgs.uky.edu/kgsmap/kgsgeoserver/viewer.asp?gkarst=true">Obtained from KGS, Kentucky Geological Survery's Internal Database</a></li>
+    </ul>
+</section>  
+<section class="project">
+    <a target = '_blank' href="http://mhammond86.github.io/wind-power/"><img src="images/WindPower.png" alt="Wind Power Plant Locations" class="project-image"/></a>
+    <h3><a target = '_blank' href="http://mhammond86.github.io/wind-power/">Wind Power Plants in the United States.</a></h3>
+    <p>This map shows wind power plant locations in the United States and the power they produce.</p>
+    <p>This map was generated with custom Javascript code using Leaflet.</p>
+    <ul>
+        <li>See the map:<a target = '_blank' href="http://mhammond86.github.io/wind-power/">Wind Power Plant Locations</a></li>
+        <li>Data Source: <a href="http://www.eia.gov/electricity/data/eia923/">EIA's form 923</a></li>
+    </ul>
+</section>
+<section class="project">
+    <a target = '_blank' href="http://mhammond86.github.io/Union-Surficial-Geology/"><img src="images/union.PNG" alt="Union Surficial Geology" class="project-image"/></a>
+    <h3><a target = '_blank' href="http://mhammond86.github.io/Union-Surficial-Geology/">Union Surficial Geology.</a></h3>
+    <p>This map shows Union Surficial Geology.</p>
+    <p>This map was generated with custom Javascript code using Leaflet.</p>
+    <ul>
+        <li>See the map:<a target = '_blank' href="http://mhammond86.github.io/Union-Surficial-Geology/">Union Surficial Geology</a></li>
+        <li>Data Source: <a href="http://www.uky.edu/KGS/">Kentucky Geological Survey</a></li>
+    </ul>
+</section>
     
 </body>
-
 </html>
